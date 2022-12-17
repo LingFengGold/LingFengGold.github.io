@@ -1,0 +1,35 @@
+/* main.css: Add and override styles */
+
+.dc-data-count small {
+    font-size: 16px;
+}
+
+.container-fluid {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.pie-chart {
+    margin-bottom: 40px;
+}
+
+.dc-chart .axis text {
+    font-size: 12px;
+}
+
+text {
+    font-size: 16px;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+}
+
+a {
+    cursor: pointer
+}
+
+#data-count {
+    width: 70%;
+}
