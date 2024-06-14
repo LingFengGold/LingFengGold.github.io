@@ -1,972 +1,159 @@
 <!DOCTYPE html>
-<html lang="en-us">
-
-<head>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="Source Themes Academic 4.8.0">
-
-  
-
-  
-  
-  
-  
-  
-    
-    
-    
-  
-  
-
-  <meta name="author" content="Zhuowan Li">
-
-  
-  
-  
-    
-  
-  <meta name="description" content="Context-ware group captioning. Given a group of target images (shown in orange boxes) and a group of reference images which provide the context (woman), the goal is to generatea language description (woman with cowboy hat) that best describes the target group while taking into account the context depicted by the reference group.">
-
-  
-  <link rel="alternate" hreflang="en-us" href="https://lizw14.github.io/project/groupcap/">
-
-  
-
-
-  
-  
-  
-  <meta name="theme-color" content="#2962ff">
-  
-
-  
-  
-  
-  <script src="/js/mathjax-config.js"></script>
-  
-
-  
-  
-  
-  
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
-
-    
-    
-    
-      
-    
-    
-      
-      
-        
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin="anonymous" title="hl-light">
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
-        
-      
-    
-
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
-    
-
-    
-
-    
-    
-      
-
-      
-      
-
-      
-    
-      
-
-      
-      
-
-      
-    
-      
-
-      
-      
-
-      
-    
-      
-
-      
-      
-
-      
-    
-      
-
-      
-      
-
-      
-    
-      
-
-      
-      
-
-      
-    
-      
-
-      
-      
-
-      
-    
-      
-
-      
-      
-
-      
-    
-      
-
-      
-      
-
-      
-    
-      
-
-      
-      
-
-      
-    
-      
-
-      
-      
-
-      
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
-      
-    
-      
-
-      
-      
-
-      
-    
-      
-
-      
-      
-
-      
-    
-      
-
-      
-      
-
-      
-        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
-      
-    
-      
-
-      
-      
-
-      
-    
-
-  
-
-  
-  
-  
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
-  
-
-  
-  
-  
-  
-  <link rel="stylesheet" href="/css/academic.css">
-
-  
-
-
-
-
-  
-
-
-  
-
-  <link rel="manifest" href="/index.webmanifest">
-  <link rel="icon" type="image/png" href="/images/icon_hub23e96657725faf83f64cd026ff2889a_101899_32x32_fill_lanczos_center_2.png">
-  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hub23e96657725faf83f64cd026ff2889a_101899_192x192_fill_lanczos_center_2.png">
-
-  <link rel="canonical" href="https://lizw14.github.io/project/groupcap/">
-
-  
-  
-  
-  
-  
-    
-  
-  
-  <meta property="twitter:card" content="summary_large_image">
-  
-  <meta property="og:site_name" content="Zhuowan Li">
-  <meta property="og:url" content="https://lizw14.github.io/project/groupcap/">
-  <meta property="og:title" content="Context-Aware Group Captioning via Self-Attention and Contrastive Features | Zhuowan Li">
-  <meta property="og:description" content="Context-ware group captioning. Given a group of target images (shown in orange boxes) and a group of reference images which provide the context (woman), the goal is to generatea language description (woman with cowboy hat) that best describes the target group while taking into account the context depicted by the reference group."><meta property="og:image" content="https://lizw14.github.io/project/groupcap/featured.jpg">
-  <meta property="twitter:image" content="https://lizw14.github.io/project/groupcap/featured.jpg"><meta property="og:locale" content="en-us">
-  
-    
-      <meta property="article:published_time" content="2020-03-23T18:22:34-04:00">
-    
-    <meta property="article:modified_time" content="2020-03-23T18:22:34-04:00">
-  
-
-  
-
-
-    
-
-
-
-
-
-
-
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://lizw14.github.io/project/groupcap/"
-  },
-  "headline": "Context-Aware Group Captioning via Self-Attention and Contrastive Features",
-  
-  "image": [
-    "https://lizw14.github.io/project/groupcap/featured.jpg"
-  ],
-  
-  "datePublished": "2020-03-23T18:22:34-04:00",
-  "dateModified": "2020-03-23T18:22:34-04:00",
-  
-  "author": {
-    "@type": "Person",
-    "name": "**Zhuowan Li**"
-  },
-  
-  "publisher": {
-    "@type": "Organization",
-    "name": "Zhuowan Li",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://lizw14.github.io/images/icon_hub23e96657725faf83f64cd026ff2889a_101899_192x192_fill_lanczos_center_2.png"
-    }
-  },
-  "description": "Context-ware group captioning. Given a group of target images (shown in orange boxes) and a group of reference images which provide the context (woman), the goal is to generatea language description (woman with cowboy hat) that best describes the target group while taking into account the context depicted by the reference group."
-}
-</script>
-
-  
-
-  
-
-
-  
-
-
-  
-
-
-
-
-
-  <title>Context-Aware Group Captioning via Self-Attention and Contrastive Features | Zhuowan Li</title>
-
+<html><head lang="en"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>Super-CLEVR</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- <meta property="og:image" content="https://dorverbin.github.io/refnerf/img/refnerf_titlecard.jpg">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dorverbin.github.io/refnerf">
+    <meta property="og:title" content="Ref-NeRF: Structured View-Dependent Appearance for Neural Radiance Fields">
+    <meta property="og:description" content="Neural Radiance Fields (NeRF) is a popular view synthesis technique that represents a scene as a continuous volumetric function, parameterized by multilayer perceptrons that provide the volume density and view-dependent emitted radiance at each location. While NeRF-based techniques excel at representing fine geometric structures with smoothly varying view-dependent appearance, they often fail to accurately capture and reproduce the appearance of glossy surfaces. We address this limitation by introducing Ref-NeRF, which replaces NeRF's parameterization of view-dependent outgoing radiance with a representation of reflected radiance and structures this function using a collection of spatially-varying scene properties. We show that together with a regularizer on normal vectors, our model significantly improves the realism and accuracy of specular reflections. Furthermore, we show that our model's internal representation of outgoing radiance is interpretable and useful for scene editing."> -->
+
+    <!-- <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ref-NeRF: Structured View-Dependent Appearance for Neural Radiance Fields">
+    <meta name="twitter:description" content="Neural Radiance Fields (NeRF) is a popular view synthesis technique that represents a scene as a continuous volumetric function, parameterized by multilayer perceptrons that provide the volume density and view-dependent emitted radiance at each location. While NeRF-based techniques excel at representing fine geometric structures with smoothly varying view-dependent appearance, they often fail to accurately capture and reproduce the appearance of glossy surfaces. We address this limitation by introducing Ref-NeRF, which replaces NeRF's parameterization of view-dependent outgoing radiance with a representation of reflected radiance and structures this function using a collection of spatially-varying scene properties. We show that together with a regularizer on normal vectors, our model significantly improves the realism and accuracy of specular reflections. Furthermore, we show that our model's internal representation of outgoing radiance is interpretable and useful for scene editing.">
+    <meta name="twitter:image" content="https://dorverbin.github.io/refnerf/img/refnerf_titlecard.jpg"> -->
+
+    <!-- mirror: F0%9F%AA%9E&lt -->
+    <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text y=%22.9em%22 font-size=%2290%22&gt;%E2%9C%A8&lt;/text&gt;&lt;/svg&gt;">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/codemirror.min.css">
+    <link rel="stylesheet" href="css/app.css">
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/codemirror.min.js"></script>
+    <script src="js/clipboard.min.js"></script>
+    <script src="js/video_comparison.js"></script>
+    <script src="js/app.js"></script>
 </head>
 
-<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
-
-  <aside class="search-results" id="search">
-  <div class="container">
-    <section class="search-header">
-
-      <div class="row no-gutters justify-content-between mb-3">
-        <div class="col-6">
-          <h1>Search</h1>
+<body>
+    <div class="container" id="header" style="text-align: center; margin: auto; padding-top: 20px;">
+        <div class="row" id="title-row" style="max-width: 100%; margin: 0 auto; display: inline-block">
+            <h2 class="col-md-12 text-center" id="title">
+                Context-Aware Group Captioning <br />via Self-Attention and Contrastive Features
+            </h2>
         </div>
-        <div class="col-6 col-search-close">
-          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        <div class="row" id="author-row" style="margin:0 auto;">
+            <div class="col-md-12 text-center" style="display: table; margin:0 auto">
+                <table class="author-table" id="author-table">
+                    <tr>
+                        <td style="padding: 3px 15px;">
+                            <a style="text-decoration:none" href="https://lizw14.github.io">
+                                Zhuowan Li
+                            </a>
+                        </td>
+                        <td style="padding: 3px 15px;">
+                            <a style="text-decoration:none" href="https://scholar.google.com/citations?user=ehs5ImcAAAAJ&hl=en">
+                                Quan Tran
+                            </a>
+                        </td>
+                        <td style="padding: 3px 15px;">
+                            <a style="text-decoration:none" href="https://mai-t-long.com">
+                                Long Mai
+                            </a>
+                        </td>
+                        <td style="padding: 3px 15px;">
+                            <a style="text-decoration:none" href="https://scholar.google.com/citations?user=R0bnqaAAAAAJ&hl=en">
+                                Zhe Lin
+                            </a>
+                        </td>
+                        <td style="padding: 3px 15px;">
+                            <a style="text-decoration:none" href="https://www.cs.jhu.edu/~ayuille/">
+                                Alan Yuille
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+                <p style="padding-top: 10px;">
+                    Johns Hopkins University, Adobe Research
+                </p>
+                <p style="color: gray;">
+                    CVPR 2020
+                </p>
+            </div>
         </div>
-      </div>
-
-      <div id="search-box">
-        
-        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
-        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
-        
-      </div>
-
-    </section>
-    <section class="section-search-results">
-
-      <div id="search-hits">
-        
-      </div>
-
-    </section>
-  </div>
-</aside>
-
-
-  
-
-
-
-
-
-
-
-<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
-  <div class="container">
-
-    
-
-    
-    <button type="button" class="navbar-toggler" data-toggle="collapse"
-            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-    <span><i class="fas fa-bars"></i></span>
-    </button>
-    
-
-    
-
-    
-    
-    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
-
-      
-      <ul class="navbar-nav d-md-inline-flex">
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
-
-        <li class="nav-item">
-          <a class="nav-link " href="/#about"><span>Home</span></a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
-
-        <li class="nav-item">
-          <a class="nav-link " href="/#publications"><span>Publications</span></a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
-
-        <li class="nav-item">
-          <a class="nav-link " href="/#projects"><span>Projects</span></a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-
-        <li class="nav-item">
-          <a class="nav-link " href="/files/cv.pdf"><span>CV</span></a>
-        </li>
-
-        
-        
-
-      
-
-        
-      </ul>
     </div>
-
-    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
-      
-      <li class="nav-item">
-        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
-      </li>
-      
-
-      
-
-      
-
-    </ul>
-
-  </div>
-</nav>
-
-
-  <article class="article article-project">
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-  
-  
-<div class="article-container pt-3">
-  <h1>Context-Aware Group Captioning via Self-Attention and Contrastive Features</h1>
-
-  <div class="article-metadata">
-    <div>
-      <span><strong>Zhuowan Li</strong></span>, <span>Quan Tran</span>, <span>Long Mai</span>, <span>Zhe Lin</span>, <span>Alan Yuille</span>
-    </div>
-
-    <span class="article-date">
-      Mar 23, 2020
-    </span>
-  </div>
-
-</div>
-
-
-
-<div class="article-container">
-
-  <div class="article-style">
-      <figure id="figure-p-styletext-align-justify-context-ware-group-captioning-given-a-group-of-target-images-shown-in-orange-boxes-and-a-group-of-reference-images-which-provide-the-context-bwomanb-the-goal-is-to-generatea-language-description-bwoman-with-cowboy-hatb-that-best-describes-the-target-group-while-taking-into-account-the-context-depicted-by-the-reference-group-p">
-        <a data-fancybox="" href="/project/groupcap/featured_hu842a2d1847dc7d465a6323f01bc8e677_2345686_2000x2000_fit_q90_lanczos.jpg" data-caption=" Context-ware group captioning. Given a group of target images (shown in orange boxes) and a group of reference images which provide the context (woman), the goal is to generatea language description (woman with cowboy hat) that best describes the target group while taking into account the context depicted by the reference group.">
-        <img data-src="/project/groupcap/featured_hu842a2d1847dc7d465a6323f01bc8e677_2345686_2000x2000_fit_q90_lanczos.jpg" class="lazyload" alt="" width="2550" height="1741">
-        </a>
-        <figcaption>
-          <p style='text-align: justify;'> Context-ware group captioning. Given a group of target images (shown in orange boxes) and a group of reference images which provide the context (<b>woman</b>), the goal is to generatea language description (<b>woman with cowboy hat</b>) that best describes the target group while taking into account the context depicted by the reference group.
-        </figcaption>
-      </figure>
-
-      <h2 id="abstract">Abstract</h2>
-      <p>While image captioning has progressed rapidly, existing works focus mainly on describing single images. In this paper, we introduce a new task, context-aware group captioning, which aims to describe a group of target images in the context of another group of related reference images. Context-aware group captioning requires not only summarizing information from both the target and reference image group but also contrasting between them. To solve this problem, we propose a framework combining self-attention mechanism with contrastive feature construction to effectively summarize common information from each image group while capturing discriminative information between them. To build the dataset for this task, we propose to group the images and generate the group captions based on single image captions using scene graphs matching. Our datasets are constructed on top of the public Conceptual Captions dataset and our new Stock Captions dataset. Experiments on the two datasets show the effectiveness of our method on this new task.</p>
-      <h2 id="datasets">Datasets</h2>
-
-
-
-
-
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-<figure id="figure-table-statistics-of-conceptual-captions-and-stock-captions">
-
-
-  <a data-fancybox="" href="/project/groupcap/dataset_hu9788292a39b0f37a4d1576694de43eb2_44113_2000x2000_fit_lanczos_2.png" data-caption="Table: Statistics of Conceptual Captions and Stock Captions">
-
-
-  <img data-src="/project/groupcap/dataset_hu9788292a39b0f37a4d1576694de43eb2_44113_2000x2000_fit_lanczos_2.png" class="lazyload" alt="" width="456" height="349">
-</a>
-
-
-  
-  
-  <figcaption>
-    Table: Statistics of Conceptual Captions and Stock Captions
-  </figcaption>
-
-
-</figure>
-
-<ul>
-<li>Conceptual Captions Dataset
-<ul>
-<li>
-<a href="http://cs.jhu.edu/~zhuowan/ContextCap/conceptual_dataset.zip" target="_blank" rel="noopener">Download</a>.</li>
-</ul>
-</li>
-<li>Stock Captions Dataset
-<ul>
-<li>Coming up soon.</li>
-</ul>
-</li>
-</ul>
-<h2 id="code">Code</h2>
-<p>Code in Pytorch coming up soon</p>
-
-    </div>
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    
-    
-
-
-
-
-
-  
-  
-  
-  
-  
-  <div class="media author-card content-widget-hr">
-    
-
-    <div class="media-body">
-      <h5 class="card-title"><a href="/authors/zhuowan-li/"></a></h5>
-      
-      
-      <ul class="network-icon" aria-hidden="true">
-  
-</ul>
-
-    </div>
-  </div>
-
-
-  
-    
-    
-
-
-
-
-
-  
-  
-  
-  
-  
-  <div class="media author-card content-widget-hr">
-    
-
-    <div class="media-body">
-      <h5 class="card-title"><a href="/authors/quan-tran/"></a></h5>
-      
-      
-      <ul class="network-icon" aria-hidden="true">
-  
-</ul>
-
-    </div>
-  </div>
-
-
-  
-    
-    
-
-
-
-
-
-  
-  
-  
-  
-  
-  <div class="media author-card content-widget-hr">
-    
-
-    <div class="media-body">
-      <h5 class="card-title"><a href="/authors/long-mai/"></a></h5>
-      
-      
-      <ul class="network-icon" aria-hidden="true">
-  
-</ul>
-
-    </div>
-  </div>
-
-
-  
-    
-    
-
-
-
-
-
-  
-  
-  
-  
-  
-  <div class="media author-card content-widget-hr">
-    
-
-    <div class="media-body">
-      <h5 class="card-title"><a href="/authors/zhe-lin/"></a></h5>
-      
-      
-      <ul class="network-icon" aria-hidden="true">
-  
-</ul>
-
-    </div>
-  </div>
-
-
-  
-    
-    
-
-
-
-
-
-  
-  
-  
-  
-  
-  <div class="media author-card content-widget-hr">
-    
-
-    <div class="media-body">
-      <h5 class="card-title"><a href="/authors/alan-yuille/"></a></h5>
-      
-      
-      <ul class="network-icon" aria-hidden="true">
-  
-</ul>
-
-    </div>
-  </div>
-
-
-  
-
-
-
-
-
-
-
-
-
-
-  
-  
-
-
-
-    <div class="project-related-pages content-widget-hr">
-      
-      
-
-      
-      
-      
-
-      
-      
-      
-
-      
-      
-      
-    </div>
-  </div>
-</article>
-
-      
-
-    
-    
-    
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
-
-      
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.4.8/mermaid.min.js" integrity="sha256-lyWCDMnMeZiXRi7Zl54sZGKYmgQs4izcT7+tKc+KUBk=" crossorigin="anonymous" title="mermaid"></script>
-      
-
-      
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
-        
-      
-
-    
-
-    
-    
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
-    
-
-    
-    
-    <script>const code_highlighting = true;</script>
-    
-
-    
-    
-    <script>const isSiteThemeDark = false;</script>
-    
-
-    
-    
-    
-    
-    
-    
     <script>
-      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
-      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
-      const content_type = {
-        'post': "Posts",
-        'project': "Projects",
-        'publication' : "Publications",
-        'talk' : "Talks"
-        };
+        document.getElementById('author-row').style.maxWidth = document.getElementById("title-row").clientWidth + 'px';
     </script>
-    
-
-    
-    
-
-    
-    
-    <script id="search-hit-fuse-template" type="text/x-template">
-      <div class="search-hit" id="summary-{{key}}">
-      <div class="search-hit-content">
-        <div class="search-hit-name">
-          <a href="{{relpermalink}}">{{title}}</a>
-          <div class="article-metadata search-hit-type">{{type}}</div>
-          <p class="search-hit-description">{{snippet}}</p>
+    <div class="container" id="main">
+        <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 text-center">
+                    <ul class="nav nav-pills nav-justified">
+                        <li>
+                            <a href="https://arxiv.org/pdf/2004.03708.pdf">
+                            <img src="./img/paper.png" height="60px">
+                                <h4><strong>Paper</strong></h4>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
         </div>
-      </div>
-      </div>
-    </script>
-    
 
-    
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
-    
+    <div class="container" style="max-width: 1100px; padding-bottom: 60px;">
 
-    
-    
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 h3-sec">
+                <h3>
+                    Abstract
+                </h3>
+                <p class="text-justify">
+                    While image captioning has progressed rapidly, existing works focus mainly on describing single images. In this paper, we introduce a new task, context-aware group captioning, which aims to describe a group of target images in the context of another group of related reference images. Context-aware group captioning requires not only summarizing information from both the target and reference image group but also contrasting between them. To solve this problem, we propose a framework combining self-attention mechanism with contrastive feature construction to effectively summarize common information from each image group while capturing discriminative information between them. To build the dataset for this task, we propose to group the images and generate the group captions based on single image captions using scene graphs matching. Our datasets are constructed on top of the public Conceptual Captions dataset and our new Stock Captions dataset. Experiments on the two datasets show the effectiveness of our method on this new task.
+                </p>
+            </div>
+        </div>
 
-    
-    
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 h3-sec">
+                <h3>
+                    Dataset
+                </h3>
+                <image src="img/5035-teaser.gif" class="img-responsive" width="70%" style="max-height: 450px; margin: 15px auto 15px auto;"></image>
+                
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-      
-    
-    
-    
-    
-    <script src="/js/academic.min.37431be2d92d7fb0160054761ab79602.js"></script>
+                <p class="text-justify">
+                    Conceptual Captions Dataset: <a href="http://cs.jhu.edu/~zhuowan/ContextCap/conceptual_dataset.zip" target="_blank" rel="noopener">conceptual_dataset.zip</a></p>
+                </p>
+                <p class="text-justify">
+                    Stock Captions Dataset: To be updated.</p>
+                </p>
 
-    
+            </div>
+        </div>
 
 
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Citation
+                </h3>
+                <div class="form-group col-l-30 col--offset-0">
+                    <textarea id="bibtex" class="form-control" readonly>
+@inproceedings{li2020context,
+    title={Context-aware group captioning via self-attention and contrastive features},
+    author={Li, Zhuowan and Tran, Quan and Mai, Long and Lin, Zhe and Yuille, Alan L},
+    booktitle={Proceedings of the IEEE/CVF conference on computer vision and pattern recognition},
+    pages={3440--3450},
+    year={2020}
+}</textarea>
+                </div>
+            </div>
+        </div>
 
+        </div>
 
-
-
-  
-  
-  <div class="container">
-    <footer class="site-footer">
-  
-
-  <p class="powered-by">
-    
-
-    Powered by the
-    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
-    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
-
-    
-    <span class="float-right" aria-hidden="true">
-      <a href="#" class="back-to-top">
-        <span class="button_icon">
-          <i class="fas fa-chevron-up fa-2x"></i>
-        </span>
-      </a>
-    </span>
-    
-  </p>
-</footer>
-
-  </div>
-  
-
-  
-<div id="modal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Cite</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <pre><code class="tex hljs"></code></pre>
-      </div>
-      <div class="modal-footer">
-        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
-          <i class="fas fa-copy"></i> Copy
-        </a>
-        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
-          <i class="fas fa-download"></i> Download
-        </a>
-        <div id="modal-error"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-</body>
-</html>
+<script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</body></html>
