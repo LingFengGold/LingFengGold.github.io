@@ -1,1 +1,1 @@
-This is the source code to Zhuowan Li's public academic website: https://lizw14.github.io. This is modified from Jon Barron's public academic website: https://jonbarron.info/. Feel free to clone this code for your own personal use.
+This is the source code to Juntong Ni's public academic website: https://LingFengGold.github.io. This is modified from Jon Barron's public academic website: https://jonbarron.info/. Feel free to clone this code for your own personal use.
