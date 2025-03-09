@@ -32,9 +32,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4  # 更新到 v4
       - name: Setup Pages
-        uses: actions/configure-pages@v4  # 更新到 v4
+        uses: actions/configure-pages@v5  # 更新到 v4
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v4  # 确保是最新的 v2
+        uses: actions/upload-pages-artifact@v3  # 确保是最新的 v2
         with:
           # Upload entire repository
           path: '.'
