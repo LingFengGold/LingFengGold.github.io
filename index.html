@@ -69,7 +69,9 @@
               <!-- <p>
                   <li><span style="background-color: #FFFF00"> New </span><font color="orange"><strong>On the job market</strong></font>: I am currently on the job market. I am interested in both industry and academic positions. Don’t hesitate to email me if there is a potential fit.</p>
               <ul> -->
+              <ul id="news">
                 <!-- <li><font color="orange"><strong>[June 2024]</strong> I will attend CVPR 2024 in person at Seattle. Happy to chat!</font></li> -->
+                <li><strong>[Oct. 2026]</strong> New preprint: <a href="https://arxiv.org/abs/2610.30488">Can LLMs Be Event World Models?</a> We benchmark LLMs as world models for multi-actor event worlds built from Diplomacy games and Polymarket trades.</li>
                 <li><strong>[May. 2026]</strong> Excited to share that our paper on <a href="https://openreview.net/pdf?id=qugRvYjaFx">Multivaraite Time Series Foundation Model</a> is accepted by <strong>ICML 2026</strong> and is selected to <strong><span style="color:red;">Oral, Top 0.7%</span></strong>!</li>
                 <li><strong>[May. 2026]</strong> Our <strong>ACL 2026</strong> paper on <a href="https://arxiv.org/pdf/2601.03248">Time Series Reasoning</a> is selected to <strong><span style="color:red;">Oral, Top 4%</span></strong>!</li>
                 <li><strong>[May. 2026]</strong> Excited to share that our paper on <a href="https://arxiv.org/pdf/2502.03393?">Epidemic Time Series</a> is accpeted by <strong>KDD 2026</strong>!</li>
@@ -87,6 +89,32 @@
                 <li><strong>[Apr. 2024]</strong> <a href="https://arxiv.org/abs/2402.03358">Our survey on graph reduction</a>  has been accepted by <strong>IJCAI 2024</strong>!</li>
                 <li><strong>[Feb. 2024]</strong> I am happy to be admitted as a Computer Science PhD student in Emory Unviersity, advised by Prof. <a href="https://www.cs.emory.edu/~wjin30//">Wei Jin</a>.</li>
               </ul>
+              <!-- Show only the latest NEWS_SHOWN items; the rest fold behind a toggle -->
+              <a href="#" id="news-toggle" style="display:none;"></a>
+              <script>
+                (function () {
+                  var NEWS_SHOWN = 10;
+                  var list = document.getElementById('news');
+                  var toggle = document.getElementById('news-toggle');
+                  var items = list.getElementsByTagName('li');
+                  var total = items.length;
+                  if (total <= NEWS_SHOWN) return;
+                  var collapsed = true;
+                  function render() {
+                    for (var i = NEWS_SHOWN; i < total; i++) {
+                      items[i].style.display = collapsed ? 'none' : '';
+                    }
+                    toggle.textContent = collapsed ? 'Show all ▾' : 'Show less ▴';
+                  }
+                  toggle.style.display = '';
+                  toggle.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    collapsed = !collapsed;
+                    render();
+                  });
+                  render();
+                })();
+              </script>
                 <!-- <p style="text-align:right;font-size:small;">
                   Last updated: 2024/6/13.
                 </p> -->
@@ -105,6 +133,25 @@
           </tr>
         </tbody></table>
         <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+      <tr>
+        <td style="padding:20px;width:35%;vertical-align:middle">
+            <img src='images/2026_eventworld.png' width="250" style="display:block;margin:0 auto;">
+        </td>
+        <td style="padding:20px;width:65%;vertical-align:middle">
+          <a href="https://arxiv.org/abs/2610.30488">
+            <papertitle>From Single-Actor Environments to Multi-Actor Event Worlds: Can LLMs Be Event World Models?</papertitle>
+          </a>
+          <br>
+          <strong>Juntong Ni</strong>, Zewen Liu, Bohan Wang, Lige Zhang, Wei Jin
+          <br>
+          <em>arXiv preprint</em>
+          <br>
+          <a href="https://arxiv.org/pdf/2610.30488">pdf</a>
+          /
+          <a href="https://github.com/LingFengGold/EventWorld">code</a>
+          <p></p>
+        </td>
+      </tr>
       <tr>
         <td style="padding:20px;width:35%;vertical-align:middle">
             <img src='images/2026_conflux.png' width="200" style="display:block;margin:0 auto;">
@@ -603,7 +650,7 @@
     </tr></tbody>
   </table>
   
-  Last updated: 2026/05/28.
+  Last updated: 2026/10/22.
 </body>
 
 </html>

@@ -133,3 +133,9 @@ span.highlight {
 .fontin-bold {
   font-family: 'Fontin Bold', serif;
 }
+
+#news-toggle {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 14px;
+}
